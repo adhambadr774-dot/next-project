@@ -3,6 +3,7 @@ import { Brand } from '@/interfaces';
 import { apiServices } from '@/services/api';
 import { BrandsResponse } from '@/types';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
 export default function brands() {
@@ -20,24 +21,25 @@ export default function brands() {
 
 
   return (
-<section className="py-12 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">Shop by Brand</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-          {brands.map(brand => (
-            <div
-              key={brand._id}
-              className="flex items-center justify-center p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition"
-            >
-              <img
-                src={brand.image}
-                alt={brand.name}
-                className="h-12 object-contain grayscale hover:grayscale-0 transition duration-300"
-              />
-            </div>
-          ))}
-        </div>
+<div className="max-w-7xl mx-auto px-4 py-12">
+      <h1 className="text-4xl font-bold mb-8">Shop by Brand</h1>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {brands.map((brand) => (
+          <Link
+
+            key={brand.slug}
+            href={"/brands/${brand.slug}"}
+            className="border rounded-lg p-4 flex flex-col items-center hover:shadow-lg transition bg-amber-400"
+          >
+            <img
+              src={brand.image}
+              alt={brand.name}
+              className="h-16 w-auto object-contain mb-4"
+            />
+            <p className="text-lg font-medium">{brand.name}</p>
+          </Link>
+        ))}
       </div>
-    </section>
+    </div>
   )
 }
